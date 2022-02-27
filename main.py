@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-import re
+
 
 base_url = "http://dnd5e.wikidot.com"
 API_URL = "http://127.0.0.1:8000/"
@@ -57,12 +57,12 @@ def create_spell_object(spell_source, class_list, castingTime_range_components_d
     return spell_object
 
 
-test = get_soup("http://dnd5e.wikidot.com/spells")
+# test = get_soup("http://dnd5e.wikidot.com/spells")
 
-spell_list = get_spell(test)
-for spell in spell_list:
-    spell_text = get_soup(f"{base_url}{spell}")
-    formated_spell = split_text(spell_text, spell)
-    spell_object = (create_spell_object(*formated_spell))
-    r = requests.post(f"{API_URL}spells/", json=spell_object)
-    print(r)
+# spell_list = get_spell(test)
+# for spell in spell_list:
+#     spell_text = get_soup(f"{base_url}{spell}")
+#     formated_spell = split_text(spell_text, spell)
+#     spell_object = (create_spell_object(*formated_spell))
+#     r = requests.post(f"{API_URL}spells/", json=spell_object)
+#     print(r)
