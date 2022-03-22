@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 import os
 from dotenv import load_dotenv
-
+import re
 from pathlib import Path
 
 load_dotenv()
@@ -14,7 +14,7 @@ API_KEY = os.getenv("API_KEY")
 
 
 base_url = "http://dnd5e.wikidot.com"
-API_URL = "http://127.0.0.1:8000/"
+API_URL = "https://spellforgeapi.online/"
 
 schools = {"Abjuration": True, "Alteration": True, "Conjuration": True, "Divination": True,
            "Enchantment": True, "Illusion": True, "Invocation": True,  "Necromancy": True}
@@ -110,5 +110,13 @@ for spell in spell_list:
     spell_text = get_soup(f"{base_url}{spell}")
     formated_spell = split_text(spell_text, spell)
     spell_object = (create_spell_object(*formated_spell))
-    r = requests.post(f"{API_URL}spells/?={ API_KEY}", json=spell_object)
+    r = requests.post(f"{API_URL}spells/?key={ API_KEY}", json=spell_object)
     print(r)
+spell_text = get_soup(f"{base_url}{spell_list[50]}")
+formated_spell = split_text(spell_text, spell_list[50])
+spell_object = (create_spell_object(*formated_spell))
+print(spell_object)
+payload = {"key": API_KEY}
+
+r = requests.post(f"{API_URL}spells/", json=spell_object, params=payload)
+print(r)
